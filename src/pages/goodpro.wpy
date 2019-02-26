@@ -1,0 +1,12 @@
+<template>
+    <view>找好货</view>
+</template>
+<script>
+import wepy from 'wepy';
+export default class Good extends wepy.page {
+  config = {
+    navigationBarTitleText: '找好货'
+  };
+}
+</script>
+

@@ -1,0 +1,66 @@
+<template>
+  <repeat for="{{list}}" key="index" index="index" item="item">
+    <view class="list-item">
+      <view style="width:280rpx;"><image src="{{item.picture}}" alt=""/></view>
+      <view class="right">
+        <view style="font-size:38rpx;">{{item.name}}</view>
+        <view style="font-size:35rpx;color:gray;">{{item.intro}}</view>
+        <view style="font-size:35rpx;color:gray;">已团
+          <text style="color:red">{{item.sku}}</text>
+        </view>
+        <view class="price">
+          <text style="color:red;font-size:40rpx;">￥{{item.sale_price}}</text>
+          <text>去拼团</text>
+        </view>
+      </view>
+    </view>
+  </repeat>
+</template>
+<script>
+import wepy from 'wepy';
+export default class Product extends wepy.component {
+  data = {
+    list: []
+  };
+  onLoad() {
+    let that = this;
+    wx.request({
+      url: 'https://ptxcx.mia.com/newxcx/universalSale?page=1',
+      header: {
+        'content-type': 'application/json'
+      },
+      success(res) {
+        that.list = res.data.content.list;
+        that.$apply();
+      }
+    });
+  }
+}
+</script>
+<style lang="less" scoped>
+.list-item {
+  display: flex;
+  padding: 20rpx;
+  image {
+    width: 100%;
+    height: 280rpx;
+  }
+  .right {
+    flex: 1;
+    line-height: 60rpx;
+    margin-left: 20rpx;
+    .price {
+      display: flex;
+      justify-content: space-between;
+      text:nth-child(2) {
+        padding: 5rpx 15rpx;
+        background: red;
+        color: #fff;
+        border-radius: 10rpx;
+      }
+    }
+  }
+}
+</style>
+
+
